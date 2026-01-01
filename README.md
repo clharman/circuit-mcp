@@ -1,10 +1,8 @@
-# Snowfort Circuit MCP - Computer use for webapps and electron apps
+# Snowfart Circuit MCP - Computer use for webapps and electron apps
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![npm](https://img.shields.io/npm/v/@snowfort/circuit-web)](https://www.npmjs.com/package/@snowfort/circuit-web)
-[![npm](https://img.shields.io/npm/v/@snowfort/circuit-electron)](https://www.npmjs.com/package/@snowfort/circuit-electron)
 
-Snowfort Circuit MCP is a comprehensive Model Context Protocol (MCP) server suite that enables AI coding agents to automate both web browsers and Electron desktop applications with unparalleled precision and flexibility.
+Snowfart Circuit MCP is a comprehensive Model Context Protocol (MCP) server suite that enables AI coding agents to automate both web browsers and Electron desktop applications with unparalleled precision and flexibility.
 
 ## 🚀 Quick Start for AI Agents
 
@@ -18,7 +16,7 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@snowfort/circuit-web@latest"]
+      "args": ["@snowfart/circuit-web@latest"]
     }
   }
 }
@@ -30,7 +28,7 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-electron": {
       "command": "npx",
-      "args": ["@snowfort/circuit-electron@latest"]
+      "args": ["@snowfart/circuit-electron@latest"]
     }
   }
 }
@@ -42,11 +40,11 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@snowfort/circuit-web@latest"]
+      "args": ["@snowfart/circuit-web@latest"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@snowfort/circuit-electron@latest"]
+      "args": ["@snowfart/circuit-electron@latest"]
     }
   }
 }
@@ -490,9 +488,9 @@ app_launch({"app": "/your/project", "mode": "development"})
 
 ### CLI Options
 
-#### Web Server (`@snowfort/circuit-web`)
+#### Web Server (`@snowfart/circuit-web`)
 ```bash
-npx @snowfort/circuit-web@latest [options]
+npx @snowfart/circuit-web@latest [options]
 
 Options:
   --browser <type>    Browser engine: chromium, firefox, webkit (default: chromium)
@@ -500,9 +498,9 @@ Options:
   --name <name>      Server name for MCP handshake (default: circuit-web)
 ```
 
-#### Electron Server (`@snowfort/circuit-electron`)
+#### Electron Server (`@snowfart/circuit-electron`)
 ```bash
-npx @snowfort/circuit-electron@latest [options]
+npx @snowfart/circuit-electron@latest [options]
 
 Options:
   --name <name>      Server name for MCP handshake (default: circuit-electron)
@@ -516,11 +514,11 @@ Options:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@snowfort/circuit-web@latest", "--headed", "--browser", "chromium"]
+      "args": ["@snowfart/circuit-web@latest", "--headed", "--browser", "chromium"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@snowfort/circuit-electron@latest"]
+      "args": ["@snowfart/circuit-electron@latest"]
     }
   }
 }
@@ -532,11 +530,11 @@ Options:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@snowfort/circuit-web@latest"]
+      "args": ["@snowfart/circuit-web@latest"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@snowfort/circuit-electron@latest"]
+      "args": ["@snowfart/circuit-electron@latest"]
     }
   }
 }
@@ -546,9 +544,9 @@ Options:
 
 ```
 Published Packages:
-├── @snowfort/circuit-core@latest      # Core MCP infrastructure
-├── @snowfort/circuit-web@latest       # Web automation server (29 tools)
-└── @snowfort/circuit-electron@latest  # Desktop automation server (32 tools)
+├── @snowfart/circuit-core@latest      # Core MCP infrastructure
+├── @snowfart/circuit-web@latest       # Web automation server (29 tools)
+└── @snowfart/circuit-electron@latest  # Desktop automation server (32 tools)
 
 Local Development:
 packages/
@@ -561,9 +559,9 @@ packages/
 
 | Package | Version | Description |
 |---------|---------|-------------|
-| [`@snowfort/circuit-core`](https://www.npmjs.com/package/@snowfort/circuit-core) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-core) | Core MCP infrastructure |
-| [`@snowfort/circuit-web`](https://www.npmjs.com/package/@snowfort/circuit-web) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-web) | Web automation CLI (29 tools) |
-| [`@snowfort/circuit-electron`](https://www.npmjs.com/package/@snowfort/circuit-electron) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-electron) | Desktop automation CLI (25+ tools) |
+| [`@snowfart/circuit-core`](https://www.npmjs.com/package/@snowfart/circuit-core) | ![npm](https://img.shields.io/npm/v/@snowfart/circuit-core) | Core MCP infrastructure |
+| [`@snowfart/circuit-web`](https://www.npmjs.com/package/@snowfart/circuit-web) | ![npm](https://img.shields.io/npm/v/@snowfart/circuit-web) | Web automation CLI (29 tools) |
+| [`@snowfart/circuit-electron`](https://www.npmjs.com/package/@snowfart/circuit-electron) | ![npm](https://img.shields.io/npm/v/@snowfart/circuit-electron) | Desktop automation CLI (25+ tools) |
 
 ## 🔧 Development
 
@@ -571,7 +569,7 @@ packages/
 
 ```bash
 # Clone the repository
-git clone https://github.com/snowfort-ai/circuit-mcp.git
+git clone https://github.com/snowfart-ai/circuit-mcp.git
 cd circuit-mcp
 
 # Install dependencies
@@ -618,7 +616,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-Independent implementation for comprehensive automation testing - © 2025 Snowfort LLC
+Independent implementation for comprehensive automation testing - © 2025 snowfart LLC
 
 ## 🙏 Acknowledgments
 
