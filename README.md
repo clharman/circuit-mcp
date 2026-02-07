@@ -1,8 +1,8 @@
-# icefort Circuit MCP - Computer use for webapps and electron apps
+# Circuit MCP - Computer use for webapps and electron apps
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-icefort Circuit MCP is a comprehensive Model Context Protocol (MCP) server suite that enables AI coding agents to automate both web browsers and Electron desktop applications with unparalleled precision and flexibility.
+Circuit MCP is a comprehensive Model Context Protocol (MCP) server suite that enables AI coding agents to automate both web browsers and Electron desktop applications with unparalleled precision and flexibility.
 
 ## 🚀 Quick Start for AI Agents
 
@@ -16,7 +16,7 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@icefort/circuit-web@latest"]
+      "args": ["@snowfort/circuit-web@latest"]
     }
   }
 }
@@ -28,7 +28,7 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-electron": {
       "command": "npx",
-      "args": ["@icefort/circuit-electron@latest"]
+      "args": ["@snowfort/circuit-electron@latest"]
     }
   }
 }
@@ -40,11 +40,11 @@ Add to your AI agent's MCP configuration file:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@icefort/circuit-web@latest"]
+      "args": ["@snowfort/circuit-web@latest"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@icefort/circuit-electron@latest"]
+      "args": ["@snowfort/circuit-electron@latest"]
     }
   }
 }
@@ -488,9 +488,9 @@ app_launch({"app": "/your/project", "mode": "development"})
 
 ### CLI Options
 
-#### Web Server (`@icefort/circuit-web`)
+#### Web Server (`@snowfort/circuit-web`)
 ```bash
-npx @icefort/circuit-web@latest [options]
+npx @snowfort/circuit-web@latest [options]
 
 Options:
   --browser <type>    Browser engine: chromium, firefox, webkit (default: chromium)
@@ -498,9 +498,9 @@ Options:
   --name <name>      Server name for MCP handshake (default: circuit-web)
 ```
 
-#### Electron Server (`@icefort/circuit-electron`)
+#### Electron Server (`@snowfort/circuit-electron`)
 ```bash
-npx @icefort/circuit-electron@latest [options]
+npx @snowfort/circuit-electron@latest [options]
 
 Options:
   --name <name>      Server name for MCP handshake (default: circuit-electron)
@@ -514,11 +514,11 @@ Options:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@icefort/circuit-web@latest", "--headed", "--browser", "chromium"]
+      "args": ["@snowfort/circuit-web@latest", "--headed", "--browser", "chromium"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@icefort/circuit-electron@latest"]
+      "args": ["@snowfort/circuit-electron@latest"]
     }
   }
 }
@@ -530,11 +530,11 @@ Options:
   "mcpServers": {
     "circuit-web": {
       "command": "npx",
-      "args": ["@icefort/circuit-web@latest"]
+      "args": ["@snowfort/circuit-web@latest"]
     },
     "circuit-electron": {
       "command": "npx",
-      "args": ["@icefort/circuit-electron@latest"]
+      "args": ["@snowfort/circuit-electron@latest"]
     }
   }
 }
@@ -544,9 +544,9 @@ Options:
 
 ```
 Published Packages:
-├── @icefort/circuit-core@latest      # Core MCP infrastructure
-├── @icefort/circuit-web@latest       # Web automation server (29 tools)
-└── @icefort/circuit-electron@latest  # Desktop automation server (32 tools)
+├── @snowfort/circuit-core@latest      # Core MCP infrastructure
+├── @snowfort/circuit-web@latest       # Web automation server (29 tools)
+└── @snowfort/circuit-electron@latest  # Desktop automation server (32 tools)
 
 Local Development:
 packages/
@@ -559,9 +559,9 @@ packages/
 
 | Package | Version | Description |
 |---------|---------|-------------|
-| [`@icefort/circuit-core`](https://www.npmjs.com/package/@icefort/circuit-core) | ![npm](https://img.shields.io/npm/v/@icefort/circuit-core) | Core MCP infrastructure |
-| [`@icefort/circuit-web`](https://www.npmjs.com/package/@icefort/circuit-web) | ![npm](https://img.shields.io/npm/v/@icefort/circuit-web) | Web automation CLI (29 tools) |
-| [`@icefort/circuit-electron`](https://www.npmjs.com/package/@icefort/circuit-electron) | ![npm](https://img.shields.io/npm/v/@icefort/circuit-electron) | Desktop automation CLI (25+ tools) |
+| [`@snowfort/circuit-core`](https://www.npmjs.com/package/@snowfort/circuit-core) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-core) | Core MCP infrastructure |
+| [`@snowfort/circuit-web`](https://www.npmjs.com/package/@snowfort/circuit-web) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-web) | Web automation CLI (29 tools) |
+| [`@snowfort/circuit-electron`](https://www.npmjs.com/package/@snowfort/circuit-electron) | ![npm](https://img.shields.io/npm/v/@snowfort/circuit-electron) | Desktop automation CLI (25+ tools) |
 
 ## 🔧 Development
 
@@ -569,7 +569,7 @@ packages/
 
 ```bash
 # Clone the repository
-git clone https://github.com/icefort-ai/circuit-mcp.git
+git clone https://github.com/clharman/circuit-mcp.git
 cd circuit-mcp
 
 # Install dependencies
@@ -616,14 +616,10 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-Independent implementation for comprehensive automation testing - © 2025 icefort LLC
+Independent implementation for comprehensive automation testing
 
 ## 🙏 Acknowledgments
 
 - [Playwright](https://playwright.dev/) for the automation framework
 - [MCP SDK](https://github.com/modelcontextprotocol/typescript-sdk) for the protocol implementation
 - The Model Context Protocol community for driving innovation in AI-tool integration
-
----
-
-**Ready to automate everything?** Start with the MCP configuration above and unleash the power of AI-optimized dual-engine automation! 🚀
