@@ -846,9 +846,90 @@ class ElectronDriver {
     async snapshot(session, windowId, filter) {
         const electronSession = session;
         const window = this.getWindow(electronSession, windowId);
-        const snapshot = await window.accessibility.snapshot();
+        // page.accessibility was removed in Playwright 1.57
+    // Use CDP Accessibility.getFullAXTree and convert to the legacy format
+    let snapshot;
+    try {
+        const client = await window.context().newCDPSession(window);
+        const { nodes } = await client.send('Accessibility.getFullAXTree');
+        snapshot = this._cdpToAccessibilityTree(nodes);
+        await client.detach();
+    }
+    catch (e) {
+        if (window.accessibility && typeof window.accessibility.snapshot === 'function') {
+            snapshot = await window.accessibility.snapshot();
+        }
+        else {
+            throw new Error('Accessibility snapshot not available: ' + e.message);
+        }
+    }
         const enhancedSnapshot = this.enhanceSnapshotWithRefs(snapshot, filter);
         return JSON.stringify(enhancedSnapshot, null, 2);
+    }
+    _cdpToAccessibilityTree(nodes) {
+        if (!nodes || nodes.length === 0)
+            return null;
+        const nodeMap = new Map();
+        for (const node of nodes) {
+            const getVal = (props, name) => {
+                const p = props?.find(p => p.name === name);
+                return p?.value?.value ?? p?.value;
+            };
+            nodeMap.set(node.nodeId, {
+                role: getVal(node.properties, 'role') || node.role?.value || '',
+                name: node.name?.value || '',
+                value: getVal(node.properties, 'value') || '',
+                checked: getVal(node.properties, 'checked'),
+                disabled: getVal(node.properties, 'disabled'),
+                expanded: getVal(node.properties, 'expanded'),
+                selected: getVal(node.properties, 'selected'),
+                focused: getVal(node.properties, 'focused'),
+                pressed: getVal(node.properties, 'pressed'),
+                level: getVal(node.properties, 'level'),
+                children: [],
+                _childIds: node.childIds || [],
+            });
+        }
+        let root = null;
+        for (const [id, node] of nodeMap) {
+            for (const childId of node._childIds) {
+                const child = nodeMap.get(childId);
+                if (child)
+                    node.children.push(child);
+            }
+            delete node._childIds;
+            if (!root)
+                root = node;
+        }
+        const clean = (n) => {
+            if (!n)
+                return n;
+            const out = {};
+            if (n.role)
+                out.role = n.role;
+            if (n.name)
+                out.name = n.name;
+            if (n.value)
+                out.value = n.value;
+            if (n.checked !== undefined && n.checked !== false)
+                out.checked = n.checked;
+            if (n.disabled)
+                out.disabled = n.disabled;
+            if (n.expanded !== undefined)
+                out.expanded = n.expanded;
+            if (n.selected)
+                out.selected = n.selected;
+            if (n.focused)
+                out.focused = n.focused;
+            if (n.pressed !== undefined && n.pressed !== false)
+                out.pressed = n.pressed;
+            if (n.level !== undefined)
+                out.level = n.level;
+            if (n.children?.length > 0)
+                out.children = n.children.map(clean).filter(Boolean);
+            return out;
+        };
+        return clean(root);
     }
     enhanceSnapshotWithRefs(snapshot, filter) {
         if (!snapshot)

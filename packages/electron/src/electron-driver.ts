@@ -940,9 +940,86 @@ export class ElectronDriver implements Driver {
     const electronSession = session as ElectronSession;
     const window = this.getWindow(electronSession, windowId);
     
-    const snapshot = await window.accessibility.snapshot();
+    // page.accessibility was removed in Playwright 1.57
+    // Use CDP Accessibility.getFullAXTree and convert to the legacy JSON tree format
+    let snapshot: any;
+    try {
+      const client = await window.context().newCDPSession(window);
+      const { nodes } = await client.send('Accessibility.getFullAXTree' as any);
+      snapshot = this.cdpNodesToAccessibilityTree(nodes);
+      await client.detach();
+    } catch (e: any) {
+      // Fallback to legacy API for older Playwright versions
+      if (window.accessibility && typeof (window.accessibility as any).snapshot === 'function') {
+        snapshot = await (window.accessibility as any).snapshot();
+      } else {
+        throw new Error('Accessibility snapshot not available: ' + e.message);
+      }
+    }
+    
     const enhancedSnapshot = this.enhanceSnapshotWithRefs(snapshot, filter);
     return JSON.stringify(enhancedSnapshot, null, 2);
+  }
+
+  /**
+   * Convert CDP Accessibility.getFullAXTree nodes to the legacy
+   * page.accessibility.snapshot() JSON tree format.
+   */
+  private cdpNodesToAccessibilityTree(nodes: any[]): any {
+    if (!nodes || nodes.length === 0) return null;
+
+    const nodeMap = new Map<string, any>();
+    for (const node of nodes) {
+      const getVal = (props: any[], name: string) => {
+        const p = props?.find((p: any) => p.name === name);
+        return p?.value?.value ?? p?.value;
+      };
+      nodeMap.set(node.nodeId, {
+        role: getVal(node.properties, 'role') || node.role?.value || '',
+        name: node.name?.value || '',
+        value: getVal(node.properties, 'value') || '',
+        checked: getVal(node.properties, 'checked'),
+        disabled: getVal(node.properties, 'disabled'),
+        expanded: getVal(node.properties, 'expanded'),
+        selected: getVal(node.properties, 'selected'),
+        focused: getVal(node.properties, 'focused'),
+        pressed: getVal(node.properties, 'pressed'),
+        level: getVal(node.properties, 'level'),
+        children: [] as any[],
+        _childIds: node.childIds || [],
+      });
+    }
+
+    // Build tree from flat list
+    let root: any = null;
+    for (const [id, node] of nodeMap) {
+      for (const childId of node._childIds) {
+        const child = nodeMap.get(childId);
+        if (child) node.children.push(child);
+      }
+      delete node._childIds;
+      if (!root) root = node;
+    }
+
+    // Clean: remove empty/undefined fields to match legacy format
+    const clean = (n: any): any => {
+      if (!n) return n;
+      const out: any = {};
+      if (n.role) out.role = n.role;
+      if (n.name) out.name = n.name;
+      if (n.value) out.value = n.value;
+      if (n.checked !== undefined && n.checked !== false) out.checked = n.checked;
+      if (n.disabled) out.disabled = n.disabled;
+      if (n.expanded !== undefined) out.expanded = n.expanded;
+      if (n.selected) out.selected = n.selected;
+      if (n.focused) out.focused = n.focused;
+      if (n.pressed !== undefined && n.pressed !== false) out.pressed = n.pressed;
+      if (n.level !== undefined) out.level = n.level;
+      if (n.children?.length > 0) out.children = n.children.map(clean).filter(Boolean);
+      return out;
+    };
+
+    return clean(root);
   }
 
   private enhanceSnapshotWithRefs(snapshot: any, filter?: 'all' | 'interactive'): any {
