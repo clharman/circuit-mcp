@@ -45,6 +45,11 @@ export declare class ElectronDriver implements Driver {
     private findElectronExecutable;
     screenshot(session: Session, path?: string, windowId?: string): Promise<string>;
     snapshot(session: Session, windowId?: string, filter?: 'all' | 'interactive'): Promise<string>;
+    /**
+     * Convert CDP Accessibility.getFullAXTree nodes to the legacy
+     * page.accessibility.snapshot() JSON tree format.
+     */
+    private cdpNodesToAccessibilityTree;
     private enhanceSnapshotWithRefs;
     click(session: Session, selector: string, windowId?: string): Promise<void>;
     type(session: Session, selector: string, text: string, windowId?: string): Promise<void>;
